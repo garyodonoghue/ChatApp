@@ -33,26 +33,47 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Message") as? MessageCell else { return UITableViewCell() }
-        
         let message = viewModel.messages[indexPath.row]
-        cell.messageText.text = message.text
-        cell.side = message.user.name == "Gary" ? .right : .left
-        return cell
+        
+        let sender = message.user.name == "Gary" ? Sender.me : Sender.them
+        
+        if sender == .me {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "MeMessage") as? MeMessageCell else { return UITableViewCell()
+            }
+            
+            cell.configure(withMessage: message)
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ThemMessage") as? ThemMessageCell else { return UITableViewCell()
+            }
+            
+            cell.configure(withMessage: message)
+            return cell
+        }
+    }
+}
+
+enum Sender { case me, them }
+
+class ThemMessageCell: UITableViewCell {
+    
+    var sender: Sender?
+    
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var messageText: UILabel!
+    
+    func configure(withMessage message: Message) {
+        messageText.text = message.text
     }
 }
 
 
-class MessageCell: UITableViewCell {
+class MeMessageCell: UITableViewCell {
     
-    enum Side { case left, right }
-    
-    var side: Side?
-    
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var messageText: UILabel!
     
-    override func layoutSubviews() {
-        messageText.textAlignment = side == .left ? .left : .right
-        
+    func configure(withMessage message: Message) {
+        messageText.text = message.text
     }
 }
