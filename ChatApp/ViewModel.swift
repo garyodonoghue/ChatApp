@@ -25,4 +25,8 @@ class ViewModel {
     var messages: [Message] {
         return conversation?.messages ?? []
     }
+    
+    func addMessage(message: Message) {
+        conversation?.messages.insert(message, at: 0)
+    }
 }

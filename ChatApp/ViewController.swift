@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import InputBarAccessoryView
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var textInputView: InputBarAccessoryView!
     @IBOutlet weak var conversationTableView: UITableView! {
         didSet {
             // rotate the table view so user scrolls upwards to view history of messages
@@ -20,6 +22,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        textInputView.delegate = self
         conversationTableView.delegate = self
         conversationTableView.dataSource = self
         viewModel.fetchChatData(completion: {
@@ -162,5 +165,16 @@ extension UIView {
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         layer.mask = mask
+    }
+}
+
+extension ViewController: InputBarAccessoryViewDelegate {
+    
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+        conversationTableView.beginUpdates()
+        viewModel.addMessage(message: Message(user: MessagesDao.userGary, text: text, sentDate: Date.now))
+        let indexSet = IndexSet(integer: 0)
+        conversationTableView.insertSections(indexSet, with: .bottom)
+        conversationTableView.endUpdates()
     }
 }

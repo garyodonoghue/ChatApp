@@ -24,7 +24,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="G1T-l2-zPN">
-                                <rect key="frame" x="0.0" y="44" width="414" height="661"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="641"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ThemMessage" id="CZr-yq-Xo6" customClass="ThemMessageCell" customModule="ChatApp" customModuleProvider="target">
@@ -124,12 +124,13 @@
                             <constraint firstItem="5Cu-xW-U4E" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IbW-z2-77j"/>
                             <constraint firstItem="G1T-l2-zPN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="NBI-iV-0D6"/>
                             <constraint firstItem="G1T-l2-zPN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="eZP-oE-GI4"/>
-                            <constraint firstItem="5Cu-xW-U4E" firstAttribute="top" secondItem="G1T-l2-zPN" secondAttribute="bottom" id="mN0-Uq-oUg"/>
+                            <constraint firstItem="5Cu-xW-U4E" firstAttribute="top" secondItem="G1T-l2-zPN" secondAttribute="bottom" constant="20" id="mN0-Uq-oUg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="G1T-l2-zPN" secondAttribute="trailing" id="zvj-qy-xLu"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="conversationTableView" destination="G1T-l2-zPN" id="z3W-Wi-2BW"/>
+                        <outlet property="textInputView" destination="5Cu-xW-U4E" id="Hpz-uF-CXn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

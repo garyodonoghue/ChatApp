@@ -13,9 +13,9 @@ class MessagesDao {
     
     static var shared = MessagesDao()
     
-    let users = [User(name: "Gary"), User(name: "Friend")]
-    
-    var currentUser: User { return users.last! }
+    static let userGary = User(name: "Gary")
+    static let userFriend = User(name: "Friend")
+    let users = [userGary, userFriend]
     
     private init() {}
     
@@ -26,23 +26,31 @@ class MessagesDao {
         
         for i in 0..<30 {
             let user = users[i % users.count]
-            var timeModified = Calendar.current.date(byAdding: .minute, value: -20*i, to: time)!
-
-            if i % 2 == 0 {
+            
+            var timeModified: Date!
+            
+            if i % 10 == 0 {
+                timeModified = Calendar.current.date(byAdding: .second, value: -5, to: time)!
                 let message = Message(user: user, text: Lorem.sentence(), sentDate: timeModified)
                 messages.append(message)
                 messages.append(message)
-                messages.append(message)
-                messages.append(message)
                 
+                timeModified = Calendar.current.date(byAdding: .second, value: -50, to: time)!
+                let message1 = Message(user: user, text: Lorem.sentence(), sentDate: timeModified)
+                messages.append(message1)
+            } else if i % 4 == 0 {
+                timeModified = Calendar.current.date(byAdding: .minute, value: -20*i, to: time)!
+                let message = Message(user: user, text: Lorem.sentence(), sentDate: timeModified)
+                messages.append(message)
+                messages.append(message)
             } else {
+                timeModified = Calendar.current.date(byAdding: .minute, value: -20*i, to: time)!
                 let message = Message(user: user, text: Lorem.paragraph(), sentDate: timeModified)
                 messages.append(message)
             }
             
-            if i == 15 {
-                timeModified = Date.now
-            }
+            
+        
             time = timeModified
         }
         let conversation = Conversation(users: users, messages: messages)
