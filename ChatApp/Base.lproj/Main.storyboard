@@ -23,16 +23,15 @@
                                     <constraint firstAttribute="height" constant="191" placeholder="YES" id="1y5-Bl-hTi"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="G1T-l2-zPN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="G1T-l2-zPN">
                                 <rect key="frame" x="0.0" y="44" width="414" height="661"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ThemMessage" id="CZr-yq-Xo6" customClass="ThemMessageCell" customModule="ChatApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="60.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="50.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CZr-yq-Xo6" id="Y6P-uX-DCm">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8VK-DS-GuU">
@@ -58,7 +57,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="8VK-DS-GuU" secondAttribute="bottom" constant="10" id="7a4-6t-xXQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="8VK-DS-GuU" secondAttribute="bottom" id="7a4-6t-xXQ"/>
                                                 <constraint firstItem="8VK-DS-GuU" firstAttribute="leading" secondItem="Y6P-uX-DCm" secondAttribute="leading" constant="10" id="9FS-xt-IMW"/>
                                                 <constraint firstItem="8VK-DS-GuU" firstAttribute="top" secondItem="Y6P-uX-DCm" secondAttribute="top" constant="10" id="Wgc-1T-D9H"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8VK-DS-GuU" secondAttribute="trailing" constant="50" id="znF-JD-QdM"/>
@@ -67,14 +66,15 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="bubbleView" destination="8VK-DS-GuU" id="5t8-q3-BWQ"/>
+                                            <outlet property="messageSpacingConstraint" destination="Wgc-1T-D9H" id="D5k-NZ-TK4"/>
                                             <outlet property="messageText" destination="rem-CY-XyT" id="ZDw-7E-iCm"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeMessage" id="E0k-rk-vHI" customClass="MeMessageCell" customModule="ChatApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="105" width="414" height="60.5"/>
+                                        <rect key="frame" x="0.0" y="95" width="414" height="50.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E0k-rk-vHI" id="W5X-pD-3WM">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XcF-jc-Zme">
@@ -101,7 +101,7 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="XcF-jc-Zme" secondAttribute="trailing" constant="10" id="2E2-pZ-WSt"/>
-                                                <constraint firstAttribute="bottom" secondItem="XcF-jc-Zme" secondAttribute="bottom" constant="10" id="IDf-EF-T1g"/>
+                                                <constraint firstAttribute="bottom" secondItem="XcF-jc-Zme" secondAttribute="bottom" id="IDf-EF-T1g"/>
                                                 <constraint firstItem="XcF-jc-Zme" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="W5X-pD-3WM" secondAttribute="leading" constant="50" id="MBB-yV-7SX"/>
                                                 <constraint firstItem="XcF-jc-Zme" firstAttribute="top" secondItem="W5X-pD-3WM" secondAttribute="top" constant="10" id="rjg-c9-ujH"/>
                                             </constraints>
@@ -109,6 +109,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="bubbleView" destination="XcF-jc-Zme" id="Eor-0h-Kfq"/>
+                                            <outlet property="messageSpacingConstraint" destination="rjg-c9-ujH" id="BU6-hn-rzh"/>
                                             <outlet property="messageText" destination="55Z-vb-mpG" id="OdY-sr-vZF"/>
                                         </connections>
                                     </tableViewCell>

@@ -22,15 +22,28 @@ class MessagesDao {
     func getConversation() -> Conversation {
         
         var messages = [Message]()
+        var time = Date.now
+        
         for i in 0..<30 {
             let user = users[i % users.count]
+            var timeModified = Calendar.current.date(byAdding: .minute, value: -20*i, to: time)!
+
             if i % 2 == 0 {
-                let message = Message(user: user, text: Lorem.sentence())
+                let message = Message(user: user, text: Lorem.sentence(), sentDate: timeModified)
                 messages.append(message)
+                messages.append(message)
+                messages.append(message)
+                messages.append(message)
+                
             } else {
-                let message = Message(user: user, text: Lorem.paragraph())
+                let message = Message(user: user, text: Lorem.paragraph(), sentDate: timeModified)
                 messages.append(message)
             }
+            
+            if i == 15 {
+                timeModified = Date.now
+            }
+            time = timeModified
         }
         let conversation = Conversation(users: users, messages: messages)
         return conversation
@@ -40,9 +53,7 @@ class MessagesDao {
 class Conversation {
     
     let title: String
-    
     var messages: [Message]
-    
     var users: [User]
     
     var lastMessage: Message? { return messages.last }
@@ -54,27 +65,22 @@ class Conversation {
     }
 }
 
-class User {
+struct User {
     
     let id: String = UUID().uuidString
-    let image: UIImage?
+    let image: UIImage? = nil
     let name: String
     
-    init(name: String, image: UIImage? = nil) {
-        self.image = image
-        self.name = name
+    static func == (lhs: User, rhs: User) -> Bool {
+        return lhs.id == rhs.id
     }
 }
 
-class Message {
+struct Message {
     
-    let text: String
     let user: User
-    
-    init(user: User, text: String) {
-        self.user = user
-        self.text = text
-    }
+    let text: String
+    let sentDate: Date
 }
 
 //
