@@ -54,11 +54,6 @@
                                                         <constraint firstItem="rem-CY-XyT" firstAttribute="centerY" secondItem="8VK-DS-GuU" secondAttribute="centerY" id="d5L-c6-Rwc"/>
                                                         <constraint firstItem="rem-CY-XyT" firstAttribute="top" secondItem="8VK-DS-GuU" secondAttribute="top" constant="10" id="g6J-La-8A3"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="20"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -71,7 +66,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="containerView" destination="Y6P-uX-DCm" id="0Px-ub-ucv"/>
+                                            <outlet property="bubbleView" destination="8VK-DS-GuU" id="5t8-q3-BWQ"/>
                                             <outlet property="messageText" destination="rem-CY-XyT" id="ZDw-7E-iCm"/>
                                         </connections>
                                     </tableViewCell>
@@ -101,11 +96,6 @@
                                                         <constraint firstItem="55Z-vb-mpG" firstAttribute="centerY" secondItem="XcF-jc-Zme" secondAttribute="centerY" id="ruj-pK-5s8"/>
                                                         <constraint firstItem="55Z-vb-mpG" firstAttribute="leading" secondItem="XcF-jc-Zme" secondAttribute="leading" constant="20" id="yhp-68-9l5"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="20"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -118,7 +108,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="containerView" destination="W5X-pD-3WM" id="3vG-1w-dXS"/>
+                                            <outlet property="bubbleView" destination="XcF-jc-Zme" id="Eor-0h-Kfq"/>
                                             <outlet property="messageText" destination="55Z-vb-mpG" id="OdY-sr-vZF"/>
                                         </connections>
                                     </tableViewCell>

@@ -9,7 +9,12 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var conversationTableView: UITableView!
+    @IBOutlet weak var conversationTableView: UITableView! {
+        didSet {
+            // rotate the table view so user scrolls upwards to view history of messages
+            conversationTableView.transform = CGAffineTransform(scaleX: 1, y: -1)
+        }
+    }
     private let viewModel = ViewModel.shared
     
     override func viewDidLoad() {
@@ -37,43 +42,57 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         let sender = message.user.name == "Gary" ? Sender.me : Sender.them
         
-        if sender == .me {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "MeMessage") as? MeMessageCell else { return UITableViewCell()
-            }
-            
-            cell.configure(withMessage: message)
-            return cell
-        } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ThemMessage") as? ThemMessageCell else { return UITableViewCell()
-            }
-            
-            cell.configure(withMessage: message)
-            return cell
-        }
+        let reuseIdentifier = sender == .me ? "MeMessage" : "ThemMessage"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? ChatCell else { return UITableViewCell() }
+        cell.configure(withMessage: message)
+        // rotate the table view so user scrolls upwards to view history of messages
+        cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
+        return cell
     }
 }
 
 enum Sender { case me, them }
 
-class ThemMessageCell: UITableViewCell {
+class ChatCell: UITableViewCell {
+    func configure(withMessage message: Message) {
+        fatalError("not implemented")
+    }
+}
+
+class ThemMessageCell: ChatCell {
     
-    var sender: Sender?
-    
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var bubbleView: UIView!
     @IBOutlet weak var messageText: UILabel!
     
-    func configure(withMessage message: Message) {
+    override func configure(withMessage message: Message) {
         messageText.text = message.text
+    }
+    
+    override func layoutSubviews() {
+        bubbleView.roundCorners(corners: [.topLeft, .topRight, .bottomRight], radius: 10)
     }
 }
 
 
-class MeMessageCell: UITableViewCell {
+class MeMessageCell: ChatCell {
     
-    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var messageText: UILabel!
+    @IBOutlet weak var bubbleView: UIView!
     
-    func configure(withMessage message: Message) {
+    override func configure(withMessage message: Message) {
         messageText.text = message.text
+    }
+    
+    override func layoutSubviews() {
+        bubbleView.roundCorners(corners: [.topLeft, .topRight, .bottomLeft], radius: 10)
+    }
+}
+
+extension UIView {
+   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
     }
 }
