@@ -41,9 +41,11 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         var isGrouped = false
         
         if indexPath.section + 1 < viewModel.messageCount {
-            let message2 = viewModel.messages[indexPath.section + 1]
-            let timeDiff = message.sentDate.timeIntervalSince1970 - message2.sentDate.timeIntervalSince1970
-            if timeDiff <= 20 && message2.user == message.user {
+            let previousMessage = viewModel.messages[indexPath.section + 1]
+            let timeDiff = message.sentDate.timeIntervalSince1970 - previousMessage.sentDate.timeIntervalSince1970
+            if let previousMessageUser = previousMessage.user,
+                let initialMessageUser = message.user,
+                previousMessageUser.isEqual(initialMessageUser), timeDiff <= 20 {
                 isGrouped = true
             }
         }
@@ -59,11 +61,11 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard section + 1 < viewModel.messageCount else { return 0 }
+        guard section < viewModel.messageCount - 1 else { return 0 }
         let message1 = viewModel.messages[section]
         let message2 = viewModel.messages[section + 1]
+        let timeDiff = viewModel.timeDiffForMessage(message: message1, fromPrevious: message2)
         
-        let timeDiff = message1.sentDate.timeIntervalSince1970 - message2.sentDate.timeIntervalSince1970
         if timeDiff > 3600 {
             return 20
         } else {
@@ -81,22 +83,9 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
         
         let message = viewModel.messages[section]
-        let dateFormatter = DateFormatter()
-        
-
         let label = UILabel()
         label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width-10, height: headerView.frame.height-10)
-        
-        let calendar = Calendar.current
-        if calendar.isDateInToday(message.sentDate) {
-            dateFormatter.dateFormat = "HH:mm"
-            label.text = "Today \(dateFormatter.string(from: message.sentDate))"
-        } else {
-            dateFormatter.dateFormat = "EEEE HH:mm"
-            label.text = dateFormatter.string(from: message.sentDate)
-        }
-        
-        
+        label.text = viewModel.formattedHeaderText(forMessage: message)
         label.font = .boldSystemFont(ofSize: 14)
         label.textColor = .lightGray
         label.textAlignment = .center

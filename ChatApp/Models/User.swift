@@ -18,7 +18,7 @@ class User: Object {
         self.name = name
     }
     
-    static func == (lhs: User, rhs: User) -> Bool {
-        return lhs.id == rhs.id
+    func isEqual(_ user: User) -> Bool {
+        return name == user.name
     }
 }
