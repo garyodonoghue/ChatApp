@@ -16,6 +16,11 @@
 		0D08D6D8284550890006B96F /* InputBarAccessoryView in Frameworks */ = {isa = PBXBuildFile; productRef = 0D08D6D7284550890006B96F /* InputBarAccessoryView */; };
 		0D08D6DA284555AF0006B96F /* MessagesDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D08D6D9284555AF0006B96F /* MessagesDao.swift */; };
 		0D08D6DC2845568D0006B96F /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D08D6DB2845568D0006B96F /* ViewModel.swift */; };
+		0D3042BD284FCE3200F1CAF7 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 0D3042BC284FCE3200F1CAF7 /* Realm */; };
+		0D3042BF284FCE3200F1CAF7 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0D3042BE284FCE3200F1CAF7 /* RealmSwift */; };
+		0D3042C7284FCF5500F1CAF7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3042C6284FCF5500F1CAF7 /* User.swift */; };
+		0D3042C9284FCF6600F1CAF7 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3042C8284FCF6600F1CAF7 /* Conversation.swift */; };
+		0D3042CB284FCF7400F1CAF7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3042CA284FCF7400F1CAF7 /* Message.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +34,9 @@
 		0D08D6D0284550680006B96F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D08D6D9284555AF0006B96F /* MessagesDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDao.swift; sourceTree = "<group>"; };
 		0D08D6DB2845568D0006B96F /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		0D3042C6284FCF5500F1CAF7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		0D3042C8284FCF6600F1CAF7 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		0D3042CA284FCF7400F1CAF7 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +44,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D3042BF284FCE3200F1CAF7 /* RealmSwift in Frameworks */,
+				0D3042BD284FCE3200F1CAF7 /* Realm in Frameworks */,
 				0D08D6D8284550890006B96F /* InputBarAccessoryView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,17 +72,60 @@
 		0D08D6C1284550670006B96F /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
+				0D3042C5284FCF4A00F1CAF7 /* Utils */,
+				0D3042C4284FCF0A00F1CAF7 /* ViewModels */,
+				0D3042C3284FCEF200F1CAF7 /* UI */,
+				0D3042C1284FCEB300F1CAF7 /* DAO */,
+				0D3042C0284FCEAD00F1CAF7 /* Models */,
 				0D08D6C2284550670006B96F /* AppDelegate.swift */,
 				0D08D6C4284550670006B96F /* SceneDelegate.swift */,
-				0D08D6C6284550670006B96F /* ViewController.swift */,
-				0D08D6C8284550670006B96F /* Main.storyboard */,
 				0D08D6CB284550680006B96F /* Assets.xcassets */,
-				0D08D6CD284550680006B96F /* LaunchScreen.storyboard */,
 				0D08D6D0284550680006B96F /* Info.plist */,
-				0D08D6D9284555AF0006B96F /* MessagesDao.swift */,
-				0D08D6DB2845568D0006B96F /* ViewModel.swift */,
 			);
 			path = ChatApp;
+			sourceTree = "<group>";
+		};
+		0D3042C0284FCEAD00F1CAF7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0D3042C6284FCF5500F1CAF7 /* User.swift */,
+				0D3042C8284FCF6600F1CAF7 /* Conversation.swift */,
+				0D3042CA284FCF7400F1CAF7 /* Message.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0D3042C1284FCEB300F1CAF7 /* DAO */ = {
+			isa = PBXGroup;
+			children = (
+				0D08D6D9284555AF0006B96F /* MessagesDao.swift */,
+			);
+			path = DAO;
+			sourceTree = "<group>";
+		};
+		0D3042C3284FCEF200F1CAF7 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				0D08D6CD284550680006B96F /* LaunchScreen.storyboard */,
+				0D08D6C8284550670006B96F /* Main.storyboard */,
+				0D08D6C6284550670006B96F /* ViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		0D3042C4284FCF0A00F1CAF7 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0D08D6DB2845568D0006B96F /* ViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		0D3042C5284FCF4A00F1CAF7 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -93,6 +146,8 @@
 			name = ChatApp;
 			packageProductDependencies = (
 				0D08D6D7284550890006B96F /* InputBarAccessoryView */,
+				0D3042BC284FCE3200F1CAF7 /* Realm */,
+				0D3042BE284FCE3200F1CAF7 /* RealmSwift */,
 			);
 			productName = ChatApp;
 			productReference = 0D08D6BF284550670006B96F /* ChatApp.app */;
@@ -124,6 +179,7 @@
 			mainGroup = 0D08D6B6284550670006B96F;
 			packageReferences = (
 				0D08D6D6284550890006B96F /* XCRemoteSwiftPackageReference "InputBarAccessoryView" */,
+				0D3042BB284FCE3200F1CAF7 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 0D08D6C0284550670006B96F /* Products */;
 			projectDirPath = "";
@@ -154,7 +210,10 @@
 			files = (
 				0D08D6DC2845568D0006B96F /* ViewModel.swift in Sources */,
 				0D08D6DA284555AF0006B96F /* MessagesDao.swift in Sources */,
+				0D3042C7284FCF5500F1CAF7 /* User.swift in Sources */,
 				0D08D6C7284550670006B96F /* ViewController.swift in Sources */,
+				0D3042C9284FCF6600F1CAF7 /* Conversation.swift in Sources */,
+				0D3042CB284FCF7400F1CAF7 /* Message.swift in Sources */,
 				0D08D6C3284550670006B96F /* AppDelegate.swift in Sources */,
 				0D08D6C5284550670006B96F /* SceneDelegate.swift in Sources */,
 			);
@@ -384,6 +443,14 @@
 				minimumVersion = 6.0.0;
 			};
 		};
+		0D3042BB284FCE3200F1CAF7 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.19.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -391,6 +458,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0D08D6D6284550890006B96F /* XCRemoteSwiftPackageReference "InputBarAccessoryView" */;
 			productName = InputBarAccessoryView;
+		};
+		0D3042BC284FCE3200F1CAF7 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D3042BB284FCE3200F1CAF7 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		0D3042BE284FCE3200F1CAF7 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D3042BB284FCE3200F1CAF7 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

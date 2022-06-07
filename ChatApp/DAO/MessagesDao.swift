@@ -58,39 +58,6 @@ class MessagesDao {
     }
 }
 
-class Conversation {
-    
-    let title: String
-    var messages: [Message]
-    var users: [User]
-    
-    var lastMessage: Message? { return messages.last }
-    
-    init(users: [User], messages: [Message]) {
-        self.users = users
-        self.messages = messages
-        self.title = Lorem.words(nbWords: 4).capitalized
-    }
-}
-
-struct User {
-    
-    let id: String = UUID().uuidString
-    let image: UIImage? = nil
-    let name: String
-    
-    static func == (lhs: User, rhs: User) -> Bool {
-        return lhs.id == rhs.id
-    }
-}
-
-struct Message {
-    
-    let user: User
-    let text: String
-    let sentDate: Date
-}
-
 //
 //  Lorem.swift
 //  InputBarAccessoryView Example
