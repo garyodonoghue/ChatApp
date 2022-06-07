@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import RealmSwift
 
-struct User {
+class User: Object {
     
-    let id: String = UUID().uuidString
-    let image: UIImage? = nil
-    let name: String
+    @Persisted var id: String = UUID().uuidString
+    @Persisted var name: String
+    
+    convenience init(name: String) {
+        self.init()
+        self.name = name
+    }
     
     static func == (lhs: User, rhs: User) -> Bool {
         return lhs.id == rhs.id

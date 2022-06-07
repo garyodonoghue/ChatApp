@@ -6,10 +6,18 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Message {
+class Message: Object {
     
-    let user: User
-    let text: String
-    let sentDate: Date
+    @Persisted var user: User?
+    @Persisted var text: String
+    @Persisted var sentDate: Date
+    
+    convenience init(user: User, text: String, sendDate: Date){
+        self.init()
+        self.user = user
+        self.text = text
+        self.sentDate = sendDate
+    }
 }

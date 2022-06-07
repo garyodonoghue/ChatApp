@@ -51,7 +51,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
-        let sender = message.user.name == "Gary" ? Sender.me : Sender.them
+        let sender = message.user?.name == "Gary" ? Sender.me : Sender.them
         
         let reuseIdentifier = sender == .me ? "MeMessage" : "ThemMessage"
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? ChatCell else { return UITableViewCell() }
@@ -173,7 +173,7 @@ extension ViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         textInputView.inputTextView.text = ""
         conversationTableView.beginUpdates()
-        viewModel.addMessage(message: Message(user: MessagesDao.userGary, text: text, sentDate: Date.now))
+        viewModel.addMessage(message: Message(user: ConversationGenerator.userGary, text: text, sendDate: Date.now)) // todo
         let indexSet = IndexSet(integer: 0)
         conversationTableView.insertSections(indexSet, with: .bottom)
         conversationTableView.endUpdates()

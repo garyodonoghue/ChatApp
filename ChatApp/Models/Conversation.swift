@@ -6,18 +6,25 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Conversation {
+class Conversation: Object {
     
-    let title: String
-    var messages: [Message]
-    var users: [User]
+    @Persisted var title: String
+    @Persisted var messages: List<Message>
+    @Persisted var users: List<User>
     
     var lastMessage: Message? { return messages.last }
     
-    init(users: [User], messages: [Message]) {
-        self.users = users
-        self.messages = messages
-        self.title = Lorem.words(nbWords: 4).capitalized
+    convenience init(users: [User], messages: [Message]) {
+        self.init()
+        let usersList = List<User>()
+        usersList.append(objectsIn: users)
+        self.users = usersList
+        
+        let messagesList = List<Message>()
+        messagesList.append(objectsIn: messages)
+        self.messages = messagesList
+        self.title = "\(users[0].name) & \(users[1].name)"
     }
 }

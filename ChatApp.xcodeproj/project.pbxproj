@@ -21,6 +21,7 @@
 		0D3042C7284FCF5500F1CAF7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3042C6284FCF5500F1CAF7 /* User.swift */; };
 		0D3042C9284FCF6600F1CAF7 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3042C8284FCF6600F1CAF7 /* Conversation.swift */; };
 		0D3042CB284FCF7400F1CAF7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3042CA284FCF7400F1CAF7 /* Message.swift */; };
+		0DCF3131284FD46B00ECA520 /* ConversationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF3130284FD46B00ECA520 /* ConversationGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		0D3042C6284FCF5500F1CAF7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0D3042C8284FCF6600F1CAF7 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		0D3042CA284FCF7400F1CAF7 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		0DCF3130284FD46B00ECA520 /* ConversationGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				0D08D6D9284555AF0006B96F /* MessagesDao.swift */,
+				0DCF3130284FD46B00ECA520 /* ConversationGenerator.swift */,
 			);
 			path = DAO;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				0D3042CB284FCF7400F1CAF7 /* Message.swift in Sources */,
 				0D08D6C3284550670006B96F /* AppDelegate.swift in Sources */,
 				0D08D6C5284550670006B96F /* SceneDelegate.swift in Sources */,
+				0DCF3131284FD46B00ECA520 /* ConversationGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

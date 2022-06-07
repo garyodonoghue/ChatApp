@@ -23,7 +23,8 @@ class ViewModel {
     }
     
     var messages: [Message] {
-        return conversation?.messages ?? []
+        guard let messages = conversation?.messages else { return [] }
+        return Array(messages)
     }
     
     func addMessage(message: Message) {
