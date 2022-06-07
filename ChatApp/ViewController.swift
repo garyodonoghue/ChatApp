@@ -171,6 +171,7 @@ extension UIView {
 extension ViewController: InputBarAccessoryViewDelegate {
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+        textInputView.inputTextView.text = ""
         conversationTableView.beginUpdates()
         viewModel.addMessage(message: Message(user: MessagesDao.userGary, text: text, sentDate: Date.now))
         let indexSet = IndexSet(integer: 0)
