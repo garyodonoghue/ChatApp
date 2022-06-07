@@ -13,15 +13,30 @@ class MessagesDao {
     static var shared = MessagesDao()
     let realm = try! Realm()
 
-
-    func getConversation() -> Conversation {
+    init() {
         loadConversationHistoryIfNeeded()
-        
+    }
+    
+    var messageCount: Int {
+        return getMesssages().count
+    }
+
+    func getMesssages() -> [Message] {
         guard let conversation = realm.objects(Conversation.self).first else {
-            fatalError("Failed to load conversation into Realm DB")
+            fatalError("Failed to load conversation")
         }
         
-        return conversation
+        return Array(conversation.messages)
+    }
+    
+    func addMessage(_ message: Message) {
+        guard let conversation = realm.objects(Conversation.self).first else {
+            fatalError("Failed to load conversation")
+        }
+        
+        try! realm.write {
+            conversation.messages.insert(message, at: 0)
+        }
     }
     
     func loadConversationHistoryIfNeeded() {
@@ -32,7 +47,5 @@ class MessagesDao {
                 realm.add(conversation)
             }
         }
-        
-        
     }
 }

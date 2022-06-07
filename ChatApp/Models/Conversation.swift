@@ -10,6 +10,7 @@ import RealmSwift
 
 class Conversation: Object {
     
+    @Persisted(primaryKey: true) var id = 0
     @Persisted var title: String
     @Persisted var messages: List<Message>
     @Persisted var users: List<User>

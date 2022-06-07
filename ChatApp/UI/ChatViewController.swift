@@ -8,7 +8,7 @@
 import UIKit
 import InputBarAccessoryView
 
-class ViewController: UIViewController {
+class ChatViewController: UIViewController {
 
     @IBOutlet weak var textInputView: InputBarAccessoryView!
     @IBOutlet weak var conversationTableView: UITableView! {
@@ -25,14 +25,11 @@ class ViewController: UIViewController {
         textInputView.delegate = self
         conversationTableView.delegate = self
         conversationTableView.dataSource = self
-        viewModel.fetchChatData(completion: {
-            conversationTableView.reloadData()
-        })
     }
 }
 
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
@@ -168,7 +165,7 @@ extension UIView {
     }
 }
 
-extension ViewController: InputBarAccessoryViewDelegate {
+extension ChatViewController: InputBarAccessoryViewDelegate {
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         textInputView.inputTextView.text = ""

@@ -10,24 +10,17 @@ import Foundation
 class ViewModel {
     
     static let shared = ViewModel()
-    private var conversation: Conversation?
-    
-    func fetchChatData(completion: () -> Void) {
-        let conversation = MessagesDao.shared.getConversation()
-        self.conversation = conversation
-        completion()
-    }
+    private let messagesDao = MessagesDao.shared
     
     var messageCount: Int {
-        return conversation?.messages.count ?? 0
+        return messagesDao.messageCount
     }
     
     var messages: [Message] {
-        guard let messages = conversation?.messages else { return [] }
-        return Array(messages)
+        return messagesDao.getMesssages()
     }
     
     func addMessage(message: Message) {
-        conversation?.messages.insert(message, at: 0)
+        messagesDao.addMessage(message)
     }
 }
