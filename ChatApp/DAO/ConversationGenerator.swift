@@ -27,6 +27,9 @@
 
 import Foundation
 
+
+/// The majority of code in this file can be ignored, it was taken from the [InputAccessoryView](https://github.com/nathantannar4/InputBarAccessoryView) repository in order to
+/// have some quality sample chat history data for this demo application.
 class ConversationGenerator {
     
     static let shared = ConversationGenerator()
@@ -34,7 +37,6 @@ class ConversationGenerator {
     static let userGary = User(name: "Gary")
     static let userFriend = User(name: "Friend")
     private let users = [userGary, userFriend]
-    
     
     func getConversation() -> Conversation {
         

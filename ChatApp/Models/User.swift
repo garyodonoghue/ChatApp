@@ -8,9 +8,9 @@
 import UIKit
 import RealmSwift
 
+/// User model. Realm managed object. Used to identify the two  users in a `Conversation.swift`
 class User: Object {
     
-    @Persisted var id: String = UUID().uuidString
     @Persisted var name: String
     
     convenience init(name: String) {

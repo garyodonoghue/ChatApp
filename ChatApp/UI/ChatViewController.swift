@@ -8,8 +8,10 @@
 import UIKit
 import InputBarAccessoryView
 
+/// ChatViewController is used to display the conversation history between two users, and allow input of text to 'send' messages to the other user in the conversation
 class ChatViewController: UIViewController {
 
+    // MARK: Outlets
     @IBOutlet weak var textInputView: InputBarAccessoryView!
     @IBOutlet weak var conversationTableView: UITableView! {
         didSet {
@@ -17,44 +19,39 @@ class ChatViewController: UIViewController {
             conversationTableView.transform = CGAffineTransform(scaleX: 1, y: -1)
         }
     }
-    private let viewModel = ViewModel.shared
     
+    // MARK: Private vars
+    private let viewModel = ChatViewModel.shared
+    private let meReuseIdentifier = "MeMessage"
+    private let themReuseIdentifier = "ThemMessage"
+    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         textInputView.delegate = self
-        conversationTableView.delegate = self
-        conversationTableView.dataSource = self
     }
 }
 
-
+// MARK: UITableViewDataSource, UITableViewDelegate
 extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        viewModel.messageCount
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let message = viewModel.messages[indexPath.section]
-        var isGrouped = false
+        let isGrouped = viewModel.isGrouped(messageIndex: indexPath.section)
+        let reuseIdentifier = message.isMe() ? meReuseIdentifier : themReuseIdentifier
         
-        if indexPath.section + 1 < viewModel.messageCount {
-            let previousMessage = viewModel.messages[indexPath.section + 1]
-            let timeDiff = message.sentDate.timeIntervalSince1970 - previousMessage.sentDate.timeIntervalSince1970
-            if let previousMessageUser = previousMessage.user,
-                let initialMessageUser = message.user,
-                previousMessageUser.isEqual(initialMessageUser), timeDiff <= 20 {
-                isGrouped = true
-            }
-        }
-        
-        let sender = message.user?.name == "Gary" ? Sender.me : Sender.them
-        
-        let reuseIdentifier = sender == .me ? "MeMessage" : "ThemMessage"
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? ChatCell else { return UITableViewCell() }
         cell.configure(withMessage: message, isGrouped: isGrouped)
+        
         // rotate the table view so user scrolls upwards to view history of messages
         cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
         return cell
@@ -62,20 +59,15 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard section < viewModel.messageCount - 1 else { return 0 }
-        let message1 = viewModel.messages[section]
-        let message2 = viewModel.messages[section + 1]
-        let timeDiff = viewModel.timeDiffForMessage(message: message1, fromPrevious: message2)
+
+        let message = viewModel.messages[section]
+        let previousMessage = viewModel.messages[section + 1]
         
-        if timeDiff > 3600 {
-            return 20
-        } else {
-            return 0
-        }
+        return viewModel.isOneHourTimeDiff(message: message, fromPrevious: previousMessage) ? 20 : 0
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let message = viewModel.messages[section]
-        return message.text
+        return viewModel.textForMessage(index: section)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -95,71 +87,16 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         
         return headerView
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        viewModel.messageCount
-    }
 }
 
-enum Sender { case me, them }
 
-class ChatCell: UITableViewCell {
-    @IBOutlet weak var messageSpacingConstraint: NSLayoutConstraint!
-    
-    func configure(withMessage message: Message, isGrouped: Bool) {
-        if isGrouped {
-            messageSpacingConstraint.constant = 2
-        } else {
-            messageSpacingConstraint.constant = 10
-        }
-    }
-}
-
-class ThemMessageCell: ChatCell {
-    
-    @IBOutlet weak var bubbleView: UIView!
-    @IBOutlet weak var messageText: UILabel!
-    
-    override func configure(withMessage message: Message, isGrouped: Bool) {
-        super.configure(withMessage: message, isGrouped: isGrouped)
-        messageText.text = message.text
-    }
-    
-    override func layoutSubviews() {
-        bubbleView.roundCorners(corners: [.topLeft, .topRight, .bottomRight], radius: 10)
-    }
-}
-
-class MeMessageCell: ChatCell {
-    
-    @IBOutlet weak var messageText: UILabel!
-    @IBOutlet weak var bubbleView: UIView!
-    
-    override func configure(withMessage message: Message, isGrouped: Bool) {
-        super.configure(withMessage: message, isGrouped: isGrouped)
-        messageText.text = message.text
-    }
-    
-    override func layoutSubviews() {
-        bubbleView.roundCorners(corners: [.topLeft, .topRight, .bottomLeft], radius: 10)
-    }
-}
-
-extension UIView {
-   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        layer.mask = mask
-    }
-}
-
+// MARK: InputBarAccessoryViewDelegate
 extension ChatViewController: InputBarAccessoryViewDelegate {
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         textInputView.inputTextView.text = ""
         conversationTableView.beginUpdates()
-        viewModel.addMessage(message: Message(user: ConversationGenerator.userGary, text: text, sendDate: Date.now)) // todo
+        viewModel.saveMessage(message: Message(user: ConversationGenerator.userGary, text: text, sendDate: Date.now)) // todo
         let indexSet = IndexSet(integer: 0)
         conversationTableView.insertSections(indexSet, with: .bottom)
         conversationTableView.endUpdates()
