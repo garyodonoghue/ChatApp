@@ -100,5 +100,6 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         let indexSet = IndexSet(integer: 0)
         conversationTableView.insertSections(indexSet, with: .bottom)
         conversationTableView.endUpdates()
+        conversationTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
     }
 }
