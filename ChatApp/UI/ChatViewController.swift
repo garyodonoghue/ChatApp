@@ -114,7 +114,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
             textLabel.centerYAnchor.constraint(equalTo: bubbleView.centerYAnchor)
         ])
         
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
             bubbleView.frame = CGRect(x: bubbleView.frame.origin.x + 400, y: bubbleView.frame.origin.y - 80, width: 100, height: 50)
         }, completion: { _ in
             bubbleView.removeFromSuperview()
