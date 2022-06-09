@@ -93,12 +93,42 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
 // MARK: InputBarAccessoryViewDelegate
 extension ChatViewController: InputBarAccessoryViewDelegate {
     
+    /// Animate the message being sent by the user, so it looks as if it moves from the input text into the chat.
+    /// This animation is pretty crude, Im just moving the message right and upwards, so that it kind of moves into the space where a new message will appear in the table view,
+    /// as well as reducing its height and width (which initially just use the size from the input accessory view itself)
+    private func showMessageSendAnimation(_ text: String) {
+        let bubbleView = UIView(frame: textInputView.frame)
+        bubbleView.backgroundColor = UIColor.systemPink
+        
+        let textLabel = UILabel(frame: bubbleView.frame)
+        textLabel.text = text
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.textColor = UIColor.white
+        textLabel.font = UIFont.systemFont(ofSize: 17)
+        bubbleView.layer.cornerRadius = 10
+        bubbleView.addSubview(textLabel)
+        view.addSubview(bubbleView)
+        
+        NSLayoutConstraint.activate([
+            textLabel.centerXAnchor.constraint(equalTo: bubbleView.centerXAnchor),
+            textLabel.centerYAnchor.constraint(equalTo: bubbleView.centerYAnchor)
+        ])
+        
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
+            bubbleView.frame = CGRect(x: bubbleView.frame.origin.x + 400, y: bubbleView.frame.origin.y - 80, width: 100, height: 50)
+        }, completion: { _ in
+            bubbleView.removeFromSuperview()
+        })
+    }
+    
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         textInputView.inputTextView.text = ""
+        showMessageSendAnimation(text)
+        
         conversationTableView.beginUpdates()
         viewModel.saveMessage(message: Message(user: ConversationGenerator.userGary, text: text, sendDate: Date.now)) // todo
         let indexSet = IndexSet(integer: 0)
-        conversationTableView.insertSections(indexSet, with: .bottom)
+        conversationTableView.insertSections(indexSet, with: .none)
         conversationTableView.endUpdates()
         conversationTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
     }
